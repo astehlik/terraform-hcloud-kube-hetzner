@@ -295,3 +295,11 @@ resource "null_resource" "os_upgrade_toggle" {
     null_resource.registries
   ]
 }
+
+output "disable_ipv4" {
+  value = var.disable_ipv4
+}
+
+output "disable_ipv6" {
+  value = var.disable_ipv6
+}

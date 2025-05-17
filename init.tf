@@ -38,8 +38,8 @@ resource "hcloud_load_balancer_target" "cluster" {
 
 locals {
   first_control_plane_ip = coalesce(
-    module.control_planes[keys(module.control_planes)[0]].ipv4_address,
-    module.control_planes[keys(module.control_planes)[0]].ipv6_address,
+    module.control_planes[keys(module.control_planes)[0]].disable_ipv4 ? "" : module.control_planes[keys(module.control_planes)[0]].ipv4_address,
+    module.control_planes[keys(module.control_planes)[0]].disable_ipv6 ? "" : module.control_planes[keys(module.control_planes)[0]].ipv6_address != "" ? "[${module.control_planes[keys(module.control_planes)[0]].ipv6_address}]" : "",
     module.control_planes[keys(module.control_planes)[0]].private_ipv4_address
   )
 }

@@ -93,8 +93,8 @@ resource "hcloud_load_balancer_service" "control_plane" {
 locals {
   control_plane_ips = {
     for k, v in module.control_planes : k => coalesce(
-      v.ipv4_address,
-      v.ipv6_address,
+      v.disable_ipv4 ? "" : v.ipv4_address,
+      v.disable_ipv6 ? "" : v.ipv6_address != "" ? "[${v.ipv6_address}]" : "",
       v.private_ipv4_address
     )
   }
